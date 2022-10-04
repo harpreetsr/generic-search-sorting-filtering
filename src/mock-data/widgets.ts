@@ -17,7 +17,7 @@ const widgets: Array<IWidget> = [
     rating: 5,
     created: new Date(+new Date() - Math.floor(15156161)),
     updated: new Date(+new Date() - Math.floor(25895615)),
-    isSpecialCard: false
+    isSpecialCard: true
   },
   {
     title: "I am third title",
@@ -28,6 +28,15 @@ const widgets: Array<IWidget> = [
     updated: new Date(+new Date() - Math.floor(25895615)),
     isSpecialCard: false
   },
+  {
+    title: "Hi there",
+    description: "Are you there?",
+    id: 4,
+    rating: 10,
+    created: new Date(+new Date() - Math.floor(15156161)),
+    updated: new Date(+new Date() - Math.floor(25895615)),
+    isSpecialCard: true
+  }
 ]
 
 export default widgets;
