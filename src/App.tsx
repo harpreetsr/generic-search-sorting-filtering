@@ -9,49 +9,69 @@ import IProperty from './interfaces/IProperty';
 import IWidget from './interfaces/IWidget';
 import IPerson from './interfaces/IPerson';
 import Sorters from './components/Sorters.component';
+import { WidgetRenderer } from './components/renderers/WidgetRenderer.component';
+import { PersonRenderer } from './components/renderers';
 
 function App() {
-  const [query, setQuery] = useState<string>("");
-  const [widgetSortProperty, setWidgetSortProperty] = useState<IProperty<IWidget>>({ property: 'title' })
-  const [personSortProperty, setPersonSortProperty] = useState<IProperty<IPerson>>({ property: 'firstName' })
+  const [query, setQuery] = useState<string>('');
+  const [showPersons, setShowPersons] = useState(false);
+  const [widgetSortProperty, setWidgetSortProperty] = useState<
+    IProperty<IWidget>
+  >({ property: 'title' });
+  const [personSortProperty, setPersonSortProperty] = useState<
+    IProperty<IPerson>
+  >({ property: 'firstName' });
 
+  const buttonText = showPersons ? 'Show widgets' : 'Show persons';
   return (
-    <div className="App">
-      <header className="App-header">
-        <SearchInput  setSearchQuery={setQuery} />
+    <>
+      <br />
+      <button className="btn btn-primary" onClick={() => setShowPersons(!showPersons)}>
+        {buttonText}
+      </button>
+      <br />
+      <SearchInput setSearchQuery={setQuery} />
 
-        <h2>Widgets</h2>
-        <Sorters
-          object={widgets[0]}
-          setProperty={(property) => setWidgetSortProperty({ property })}
-        />
-        {widgets.filter(widget => genericSearch(widget, ['title', 'description'], query, false))
-        .sort((a, b) =>
-          genericSort(a, b, widgetSortProperty.property)
-        )
-        .map((widget) => {
-          return (
-            <h3>{widget.title}</h3>
-          )
-        })}
+      {showPersons ? (
+        <>
+          <h2>People:</h2>
+          <Sorters
+            object={persons[0]}
+            setProperty={(property) => setPersonSortProperty({ property })}
+          />
 
-        <h2>People:</h2>
-        <Sorters
-          object={persons[0]}
-          setProperty={(property) => setPersonSortProperty({ property })}
-         />
-
-        {persons.filter(person => genericSearch(person, ['firstName', 'lastName', 'eyeColor'], query, false))
-        .sort((a, b) =>
-          genericSort(a, b, personSortProperty.property)
-        )
-        .map((person) => {
-          return (
-            <h3>{person.firstName} {person.lastName}</h3>
-          )
-        })}
-      </header>
-    </div>
+          {persons
+            .filter((person) =>
+              genericSearch(
+                person,
+                ['firstName', 'lastName', 'eyeColor'],
+                query,
+                false
+              )
+            )
+            .sort((a, b) => genericSort(a, b, personSortProperty.property))
+            .map((person) => {
+              return <PersonRenderer {...person} />;
+            })}
+        </>
+      ) : (
+        <>
+          <h2>Widgets</h2>
+          <Sorters
+            object={widgets[0]}
+            setProperty={(property) => setWidgetSortProperty({ property })}
+          />
+          {widgets
+            .filter((widget) =>
+              genericSearch(widget, ['title', 'description'], query, false)
+            )
+            .sort((a, b) => genericSort(a, b, widgetSortProperty.property))
+            .map((widget) => {
+              return <WidgetRenderer {...widget} />;
+            })}
+        </>
+      )}
+    </>
   );
 }
 
