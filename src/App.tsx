@@ -17,10 +17,10 @@ function App() {
   const [showPersons, setShowPersons] = useState(false);
   const [widgetSortProperty, setWidgetSortProperty] = useState<
     IProperty<IWidget>
-  >({ property: 'title' });
+  >({ property: 'title', isDescending: true });
   const [personSortProperty, setPersonSortProperty] = useState<
     IProperty<IPerson>
-  >({ property: 'firstName' });
+  >({ property: 'firstName', isDescending: true });
 
   const buttonText = showPersons ? 'Show widgets' : 'Show persons';
   return (
@@ -37,7 +37,7 @@ function App() {
           <h2>People:</h2>
           <Sorters
             object={persons[0]}
-            setProperty={(property) => setPersonSortProperty({ property })}
+            setProperty={(propertyType) => setPersonSortProperty(propertyType)}
           />
 
           {persons
@@ -49,7 +49,7 @@ function App() {
                 false
               )
             )
-            .sort((a, b) => genericSort(a, b, personSortProperty.property))
+            .sort((a, b) => genericSort(a, b, personSortProperty))
             .map((person) => {
               return <PersonRenderer {...person} />;
             })}
@@ -59,13 +59,13 @@ function App() {
           <h2>Widgets</h2>
           <Sorters
             object={widgets[0]}
-            setProperty={(property) => setWidgetSortProperty({ property })}
+            setProperty={(propertyType) => setWidgetSortProperty(propertyType)}
           />
           {widgets
             .filter((widget) =>
               genericSearch(widget, ['title', 'description'], query, false)
             )
-            .sort((a, b) => genericSort(a, b, widgetSortProperty.property))
+            .sort((a, b) => genericSort(a, b, widgetSortProperty))
             .map((widget) => {
               return <WidgetRenderer {...widget} />;
             })}
