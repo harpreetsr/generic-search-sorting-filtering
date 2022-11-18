@@ -12,6 +12,7 @@ import Sorters from './components/Sorters.component';
 import { WidgetRenderer } from './components/renderers/WidgetRenderer.component';
 import { PersonRenderer } from './components/renderers';
 import genericFilter from './utils/genericFilters';
+import Filters from './components/filters';
 
 function App() {
   const [query, setQuery] = useState<string>('');
@@ -42,7 +43,18 @@ function App() {
             object={persons[0]}
             setProperty={(propertyType) => setPersonSortProperty(propertyType)}
           />
-
+          <Filters
+            object={persons[0]}
+            properties={personsFilterProperties}
+            onChangeFilter={(property) => {
+              personsFilterProperties.includes(property) ?
+              setPersonsFilterProperties(personsFilterProperties.filter(widgetFilterProperty => widgetFilterProperty !== property)) :
+              setPersonsFilterProperties([
+                ...personsFilterProperties,
+                property
+              ])
+            }}
+          />
           {persons
             .filter((person) =>
               genericSearch(
@@ -66,6 +78,18 @@ function App() {
           <Sorters
             object={widgets[0]}
             setProperty={(propertyType) => setWidgetSortProperty(propertyType)}
+          />
+          <Filters
+            object={widgets[0]}
+            properties={widgetFilterProperties}
+            onChangeFilter={(property) => {
+              widgetFilterProperties.includes(property) ?
+              setWidgetFilterProperties(widgetFilterProperties.filter(widgetFilterProperty => widgetFilterProperty !== property)) :
+              setWidgetFilterProperties([
+                ...widgetFilterProperties,
+                property
+              ])
+            }}
           />
           {widgets
             .filter((widget) =>
