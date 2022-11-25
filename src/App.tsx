@@ -48,8 +48,8 @@ function App() {
         <>
           <h2>People:</h2>
           <Sorters
-            object={persons[0]}
             setProperty={(propertyType) => setPersonSortProperty(propertyType)}
+            dataSource={persons}
           />
           <Filters
             object={persons[0]}
@@ -87,8 +87,8 @@ function App() {
         <>
           <h2>Widgets</h2>
           <Sorters
-            object={widgets[0]}
             setProperty={(propertyType) => setWidgetSortProperty(propertyType)}
+            dataSource={widgets}
           />
           <Filters
             object={widgets[0]}

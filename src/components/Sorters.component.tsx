@@ -2,12 +2,14 @@ import React from 'react'
 import IProperty from '../interfaces/ISorter';
 
 export interface ISortersProps<T> {
-  object: T;
+  dataSource: Array<T>;
   setProperty: (propertyType: IProperty<T>) => void;
 }
 
 const Sorters = <T, >(props: ISortersProps<T>) => {
-  const { object, setProperty } = props;
+  const { dataSource, setProperty } = props;
+
+  const object = dataSource.length  > 0 ? dataSource[0] : {};
 
   return (
     <>
