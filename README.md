@@ -1,4 +1,4 @@
-# Advanced TypeScript: Generic Search, Sorting, and Filtering
+# Advanced TypeScript: Generic Search, Sorting, & Filtering
 
 - TypeScript Generics.
 - Creating generic, reusable functions in TypeScript.
