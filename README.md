@@ -6,3 +6,4 @@
 - Search, sorting, and filter generic functions in TypeScript
 
 # Generics are a fairly advanced aspect of TypeScript i.e. ".ts"
+
